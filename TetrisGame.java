@@ -149,20 +149,20 @@ public class TetrisGame
 			{
 			//	tg.lll();
 				c = sc.nextLine().charAt(0);
-				if(c=='c'&&version!=3)
+				if(c=='d' && version!=3)
 				{
 					tg.lll(++version);
 				}
-				if(c=='c'&&version==3)
+				if(c=='d' && version==3)
 				{
 					version =0;
 					tg.lll(version);
 				}
-				if(c=='l'&&version!=0)
+				if(c=='a' && version!=0)
 				{
 					tg.lll(--version);
 				}
-				if(c=='l'&&version==0)
+				if(c=='a' && version==0)
 				{
 					version =3;
 					tg.lll(version);
