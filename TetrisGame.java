@@ -34,104 +34,142 @@ class Board
 }
 public class TetrisGame
 {
+	void line(int version)
+	{
+		Shape i = new Shape();
+		i.pts[0][0] = new Point(0,0);
+		i.pts[0][1] = new Point(1,0);
+		i.pts[0][2] = new Point(2,0);
+		i.pts[0][3] = new Point(3,0);
+
+		i.pts[1][0] = new Point(0,0);
+		i.pts[1][1] = new Point(0,1);
+		i.pts[1][2] = new Point(0,2);
+		i.pts[1][3] = new Point(0,3);
+
+		Board b = new Board();
+		b.assign(i,version,1,1);	
+	}
+			
+	void square(int version)
+	{
+		Shape s = new Shape();
+		s.pts[0][0] = new Point(0,0);
+		s.pts[0][1] = new Point(0,1);
+		s.pts[0][2] = new Point(1,0);
+		s.pts[0][3] = new Point(1,1);
+
+		Board b = new Board();
+		 b.assign(s,version,4,14);
+	}
+
+	void lll(int version)
+	{
+		Shape l = new Shape();
+		l.pts[0][0] = new Point(0,0);
+		l.pts[0][1] = new Point(1,0);
+		l.pts[0][2] = new Point(2,0);
+		l.pts[0][3] = new Point(2,1);
+
+		l.pts[1][0] = new Point(0,0);
+		l.pts[1][1] = new Point(1,0);
+		l.pts[1][2] = new Point(0,1);
+		l.pts[1][3] = new Point(0,2);
+
+		l.pts[2][0] = new Point(0,0);
+		l.pts[2][1] = new Point(0,1);
+		l.pts[2][2] = new Point(1,1);
+		l.pts[2][3] = new Point(2,1);
+
+		l.pts[3][0] = new Point(2,0);
+		l.pts[3][1] = new Point(2,1);
+		l.pts[3][2] = new Point(2,2);
+		l.pts[3][3] = new Point(1,2);
+
+		Board b = new Board();
+		b.assign(l,version,6,6);
+	}
+
+	void zzz(int version)
+	{
+		Shape z = new Shape();
+		z.pts[0][0] = new Point(0,0);
+		z.pts[0][1] = new Point(1,0);
+		z.pts[0][2] = new Point(1,1);
+		z.pts[0][3] = new Point(2,1);
+
+		z.pts[1][0] = new Point(0,1);
+		z.pts[1][1] = new Point(0,2);
+		z.pts[1][2] = new Point(1,0);
+		z.pts[1][3] = new Point(1,1);
+
+		Board b = new Board();
+		b.assign(z,version,3,3);
+	}
+
+	void ttt(int version)
+	{
+		Shape t = new Shape();
+		t.pts[0][0] = new Point(1,0);
+		t.pts[0][1] = new Point(1,1);
+		t.pts[0][2] = new Point(1,2);
+		t.pts[0][3] = new Point(0,1);
+
+		t.pts[1][0] = new Point(0,1);
+		t.pts[1][1] = new Point(1,1);
+		t.pts[1][2] = new Point(2,1);
+		t.pts[1][3] = new Point(1,2);
+
+		t.pts[2][0] = new Point(1,0);
+		t.pts[2][1] = new Point(1,1);
+		t.pts[2][2] = new Point(1,2);
+		t.pts[2][3] = new Point(2,1);
+
+		t.pts[3][0] = new Point(1,0);
+		t.pts[3][1] = new Point(0,1);
+		t.pts[3][2] = new Point(1,1);
+		t.pts[3][3] = new Point(2,1);
+
+		Board b = new Board();
+		b.assign(t,version,1,1);
+	}
 	public static void main(String[] args)
 		{
 			Scanner sc = new Scanner (System.in);
-			char c = '\0';
+			char c = '\0';		
+			int version= 0;
+			TetrisGame tg = new TetrisGame();
 
-			Shape i = new Shape();
-			Shape s = new Shape();
-			Shape l = new Shape();
-			Shape t = new Shape();
-			Shape z = new Shape();
-			Board b = new Board();
+			//tg.line();
+			//tg.square();
+			tg.lll(version);
+			//tg.zzz();
+			//tg.ttt();
+			while(c != 'q')
+			{
+			//	tg.lll();
+				c = sc.nextLine().charAt(0);
+				if(c=='c'&&version!=3)
+				{
+					tg.lll(++version);
+				}
+				if(c=='c'&&version==3)
+				{
+					version =0;
+					tg.lll(version);
+				}
+				if(c=='l'&&version!=0)
+				{
+					tg.lll(--version);
+				}
+				if(c=='l'&&version==0)
+				{
+					version =3;
+					tg.lll(version);
+				}
 
-			// i.pts[0][0] = new Point(0,0);
-			// i.pts[0][1] = new Point(1,0);
-			// i.pts[0][2] = new Point(2,0);
-			// i.pts[0][3] = new Point(3,0);
-
-			// i.pts[1][0] = new Point(0,0);
-			// i.pts[1][1] = new Point(0,1);
-			// i.pts[1][2] = new Point(0,2);
-			// i.pts[1][3] = new Point(0,3);
-
-			// int lineversion = 0;
-			// b.assign(i,lineversion,1,1);
-
-			// s.pts[0][0] = new Point(0,0);
-			// s.pts[0][1] = new Point(0,1);
-			// s.pts[0][2] = new Point(1,0);
-			// s.pts[0][3] = new Point(1,1);
-
-			//  b.assign(s,0,4,14);
-
-			// l.pts[0][0] = new Point(0,0);
-			// l.pts[0][1] = new Point(0,1);
-			// l.pts[0][2] = new Point(0,2);
-			// l.pts[0][3] = new Point(1,0);
-
-			// l.pts[1][0] = new Point(0,0);
-			// l.pts[1][1] = new Point(0,1);
-			// l.pts[1][2] = new Point(1,1);
-			// l.pts[1][3] = new Point(2,1);
-
-			// l.pts[2][0] = new Point(1,0);
-			// l.pts[2][1] = new Point(1,1);
-			// l.pts[2][2] = new Point(1,2);
-			// l.pts[2][3] = new Point(0,2);
-
-			// l.pts[3][0] = new Point(0,0);
-			// l.pts[3][1] = new Point(0,1);
-			// l.pts[3][2] = new Point(0,2);
-			// l.pts[3][3] = new Point(1,0);
-
-			// int lversion = 0;
-			// b.assign(l,lversion,6,6);
-
-			// z.pts[0][0] = new Point(0,1);
-			// z.pts[0][1] = new Point(1,0);
-			// z.pts[0][2] = new Point(1,1);
-			// z.pts[0][3] = new Point(2,1);
-
-			// z.pts[1][0] = new Point(0,1);
-			// z.pts[1][1] = new Point(0,2);
-			// z.pts[1][2] = new Point(1,0);
-			// z.pts[1][3] = new Point(1,1);
-
-			// int zversion = 0;
-			// b.assign(z,zversion,3,3);
-
-			t.pts[0][0] = new Point(1,0);
-			t.pts[0][1] = new Point(1,1);
-			t.pts[0][2] = new Point(1,2);
-			t.pts[0][3] = new Point(0,1);
-
-			t.pts[1][0] = new Point(0,1);
-			t.pts[1][1] = new Point(1,1);
-			t.pts[1][2] = new Point(2,1);
-			t.pts[1][3] = new Point(1,2);
-
-			t.pts[2][0] = new Point(1,0);
-			t.pts[2][1] = new Point(1,1);
-			t.pts[2][2] = new Point(1,2);
-			t.pts[2][3] = new Point(2,1);
-
-			t.pts[3][0] = new Point(1,0);
-			t.pts[3][1] = new Point(0,1);
-			t.pts[3][2] = new Point(1,1);
-			t.pts[3][3] = new Point(2,1);
-
-			int tversion = 3;
-			b.assign(t,tversion,1,1);
-
-			// while(c != 'Q')
-			// {
-			// 	c = sc.nextLine().charAt(0);
-			// 	//System.out.println(c);
-
-			// }
-			//System.out.println("Game Quitted");		
+			}
+		System.out.println("Game Quitted");
 		}
 
 }
