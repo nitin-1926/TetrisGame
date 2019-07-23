@@ -49,23 +49,32 @@ class Line extends Versions
     public void changeVer(int verNo, char mainboard[][]) 
     {
         super.changeVer(verNo, mainboard);
-        	//x[0] , y[0] is constant
-        	mainboard[x[3]][y[3]]=' ';
-        	mainboard[x[1]][y[1]]=' ';
+        	// x[0] , y[0] is constant
+            mainboard[x[1]][y[1]]=' ';
         	mainboard[x[2]][y[2]]=' ';
-        	int temp;
+        	mainboard[x[3]][y[3]]=' ';
+        if(verNo%2==0)
+        {        	
+        	x[1]=x[0];
+        	y[1]=y[0]+1;
 
-        	temp=x[3];
-        	x[3]=y[3];
-        	y[3]=temp;
+        	x[2]=x[0];
+        	y[2]=y[0]+2;
 
-        	temp=x[1];
-        	x[1]=y[1];
-        	y[1]=temp;
+        	x[3]=x[0];
+        	y[3]=y[0]+3;
+        }
+        else
+        {        	
+        	y[1]=y[0];
+        	x[1]=x[0]+1;
 
-        	temp=x[2];
-        	x[2]=y[2];
-        	y[2]=temp;
+        	y[2]=y[0];
+        	x[2]=x[0]+2;
+
+        	y[3]=y[0];
+        	x[3]=x[0]+3;
+        }
     }
     public void generateVer() 
     {
@@ -489,7 +498,7 @@ public class TetrisGame
         	// 	currentShape = l;
         	// else
         	// 	currentShape = z;
-        	currentShape=t;
+        	currentShape=line;
             drawOnmainboard(currentShape);
             displaymainboard();
             choice = scanner.next().charAt(0);
