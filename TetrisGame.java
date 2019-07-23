@@ -18,7 +18,7 @@ class Versions extends Points
     {
         this.verNo = verNo;
     }
-    public void changeVer(int verNo) 
+    public void changeVer(int verNo, char mainboard[][]) 
     {
         this.verNo = verNo;
     }
@@ -46,9 +46,26 @@ class Line extends Versions
         x = new int[] {1, 2, 3, 4};
         y = new int[] {1, 1, 1, 1};
     }
-    public void changeVer(int verNo) 
+    public void changeVer(int verNo, char mainboard[][]) 
     {
-        super.changeVer(verNo);
+        super.changeVer(verNo, mainboard);
+        	//x[0] , y[0] is constant
+        	mainboard[x[3]][y[3]]=' ';
+        	mainboard[x[1]][y[1]]=' ';
+        	mainboard[x[2]][y[2]]=' ';
+        	int temp;
+
+        	temp=x[3];
+        	x[3]=y[3];
+        	y[3]=temp;
+
+        	temp=x[1];
+        	x[1]=y[1];
+        	y[1]=temp;
+
+        	temp=x[2];
+        	x[2]=y[2];
+        	y[2]=temp;
     }
     public void generateVer() 
     {
@@ -101,9 +118,9 @@ class Square extends Versions
         x = new int[] {1, 1, 2, 2};
         y = new int[] {1, 2, 1, 2};
     }
-    public void changeVer(int verNo) 
+    public void changeVer(int verNo, char mainboard[][]) 
     {
-        super.changeVer(verNo);
+        super.changeVer(verNo, mainboard);
     }
     public void generateVer() 
     {
@@ -130,7 +147,7 @@ class Square extends Versions
     }
 }
 
-class T extends Versions 
+class T extends Versions
 {
     int tempVar[] = new int[4];
     public T() 
@@ -138,9 +155,92 @@ class T extends Versions
         x = new int[] {1, 1, 1, 2};
         y = new int[] {1, 2, 3, 2};
     }
-    public void changeVer(int verNo) 
+    public void changeVer(int verNo, char mainboard[][]) 
     {
-        super.changeVer(verNo);
+        super.changeVer(verNo,mainboard);
+        //x[3],y[3] is fixed
+        if(verNo == 1)	//4->1
+        {
+        	mainboard[x[0]][y[0]]=' ';
+        	mainboard[x[1]][y[1]]=' ';
+        	mainboard[x[2]][y[2]]=' ';
+        	int temp;
+
+        	temp=x[0];
+        	x[0]=y[0];
+        	y[0]=temp;
+
+        	temp=x[1];
+        	x[1]=y[1];
+        	y[1]=temp;
+
+        	temp=x[2];
+        	x[2]=y[2];
+        	y[2]=temp;
+        }
+        else if(verNo==2)	//1->2
+        {
+    	  	mainboard[x[0]][y[0]]=' ';
+        	mainboard[x[1]][y[1]]=' ';
+        	mainboard[x[2]][y[2]]=' ';
+        	int temp;
+
+        	temp=x[0];
+        	x[0]=y[0];
+        	y[0]=temp;
+        	y[0]+=2;
+
+        	temp=x[1];
+        	x[1]=y[1];
+        	y[1]=temp;
+        	y[1]+=2;
+
+        	temp=x[2];
+        	x[2]=y[2];
+        	y[2]=temp;
+        	y[2]+=2;
+        }
+        else if(verNo==3)	//2->3
+        {
+        	mainboard[x[0]][y[0]]=' ';
+        	mainboard[x[1]][y[1]]=' ';
+        	mainboard[x[2]][y[2]]=' ';
+        	int temp;
+
+        	temp=x[0];
+        	x[0]=y[0];
+        	y[0]=temp;
+
+        	temp=x[1];
+        	x[1]=y[1];
+        	y[1]=temp;
+
+        	temp=x[2];
+        	x[2]=y[2];
+        	y[2]=temp;	
+        }
+        else if(verNo == 4)   //3->4
+        {
+        	mainboard[x[0]][y[0]]=' ';
+        	mainboard[x[1]][y[1]]=' ';
+        	mainboard[x[2]][y[2]]=' ';
+        	int temp;
+
+        	temp=x[0];
+        	x[0]=y[0];
+        	y[0]=temp;
+        	y[0]-=2;
+
+        	temp=x[1];
+        	x[1]=y[1];
+        	y[1]=temp;
+        	y[1]-=2;
+
+        	temp=x[2];
+        	x[2]=y[2];
+        	y[2]=temp;
+        	y[2]-=2;
+        }
     }
     public void generateVer() 
     {
@@ -216,9 +316,10 @@ class L extends Versions
         x = new int[] {1, 2, 3, 3};
         y = new int[] {1, 1, 1, 2};
     }
-    public void changeVer(int verNo) 
+    public void changeVer(int verNo, char mainboard[][]) 
     {
-        super.changeVer(verNo);
+        super.changeVer(verNo, mainboard);
+
     }
     public void generateVer() 
     {
@@ -295,9 +396,9 @@ class Z extends Versions
         x = new int[] {1, 2, 2, 3};
         y = new int[] {1, 1, 2, 2};
     }
-    public void changeVer(int verNo) 
+    public void changeVer(int verNo, char mainboard[][]) 
     {
-        super.changeVer(verNo);
+        super.changeVer(verNo, mainboard);
     }
     public void generateVer() 
     {
@@ -378,23 +479,29 @@ public class TetrisGame
         initmainboard();
         while(true) 
         {
-        	if(currentShapeNo==1)
-        		currentShape = line;
-        	else if(currentShapeNo==2)
-        		currentShape = square;
-        	else if(currentShapeNo==3)
-        		currentShape = t;
-        	else if(currentShapeNo==4)
-        		currentShape = l;
-        	else
-        		currentShape = z;
+        	// if(currentShapeNo==1)
+        	// 	currentShape = line;
+        	// else if(currentShapeNo==2)
+        	// 	currentShape = square;
+        	// else if(currentShapeNo==3)
+        	// 	currentShape = t;
+        	// else if(currentShapeNo==4)
+        	// 	currentShape = l;
+        	// else
+        	// 	currentShape = z;
+        	currentShape=t;
             drawOnmainboard(currentShape);
             displaymainboard();
             choice = scanner.next().charAt(0);
-            if (choice == 'm') 
+            if (choice == 'm')
             {
-                currentVer = currentVer > 4 ? 1 : ++currentVer;
-                currentShape.changeVer(currentVer);
+            	if(currentVer>4)
+            	{
+            		currentVer=1;
+            	}
+            	else
+            		currentVer++;
+                currentShape.changeVer(currentVer,mainboard);
                 undoStack.push("m");
             } 
             else if(choice == 'a') 
@@ -482,7 +589,7 @@ public class TetrisGame
     {
         if(V.x[0] == (mainboard.length - 2) || V.x[1] == (mainboard.length - 2) || V.x[2] == (mainboard.length - 2) || V.x[3] == (mainboard.length - 2) || V.checkDown(mainboard)) 
         {
-            for(int i:V.x ) 
+            for(int i=0;i<V.x.length;i++ ) 
             {
                 hashCount[i]++;
                 if(hashCount[i] == mainboard.length - 2) 
@@ -496,7 +603,7 @@ public class TetrisGame
                     mainboard[j] = new char[20];
                     mainboard[j][0] = '*';
                     mainboard[j][mainboard.length - 1] = '*';
-                    displaymainboard();
+                    // displaymainboard();
                 }
             }
             V.generateVer();
@@ -551,7 +658,7 @@ public class TetrisGame
         else if(choice.equals("m")) 
         {
             currentVer--;
-            V.changeVer(currentVer);   
+            V.changeVer(currentVer, mainboard);   
         }
     }
     public static void redoStep(String choice, Versions V) 
@@ -571,7 +678,7 @@ public class TetrisGame
         else if(choice.equals("m")) 
         {
             currentVer++;
-            V.changeVer(currentVer);   
+            V.changeVer(currentVer, mainboard);   
         }
     }
 }
