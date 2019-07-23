@@ -26,15 +26,15 @@ class Versions extends Points
     {
 
     }
-    public boolean checkDown(char board[][]) 
+    public boolean checkDown(char mainboard[][]) 
     {
         return false;
     }
-    public boolean checkLeft(char board[][]) 
+    public boolean checkLeft(char mainboard[][]) 
     {
         return false;
     }
-    public boolean checkRight(char board[][]) 
+    public boolean checkRight(char mainboard[][]) 
     {
         return false;
     }
@@ -49,51 +49,44 @@ class Line extends Versions
     public void changeVer(int verNo) 
     {
         super.changeVer(verNo);
-        int tempVar;
-        for(int i = 0;i<x.length;i++) 
-        {
-            tempVar = x[i];
-            x[i] = y[i];
-            y[i] = tempVar;
-        }
     }
     public void generateVer() 
     {
         x = new int[] {1, 2, 3, 4};
         y = new int[] {1, 1, 1, 1};
     }
-    public boolean checkDown(char board[][]) 
+    public boolean checkDown(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[3] + 1][y[3]] == '#')) 
+        if(verNo == 1 && (mainboard[x[3] + 1][y[3]] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && ( board[x[0] + 1][y[0]] == '#' || board[x[1] + 1][y[1]] == '#' || board[x[2] + 1][y[2]] == '#' 
- 		|| board[x[3] + 1][y[3]] == '#')) 
+        else if(verNo == 2 && ( mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[1] + 1][y[1]] == '#' || mainboard[x[2] + 1][y[2]] == '#' 
+ 		|| mainboard[x[3] + 1][y[3]] == '#')) 
  		{
             return true;
         }
         return false;
     }
-    public boolean checkLeft(char board[][]) 
+    public boolean checkLeft(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0]][y[0] - 1] == '#' || board[x[1]][y[1] - 1] == '#' || board[x[2]][y[2] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && board[x[0]][y[0] - 1] == '#') 
+        else if(verNo == 2 && mainboard[x[0]][y[0] - 1] == '#') 
         {
             return true;
         }
         return false;
     }
-    public boolean checkRight(char board[][]) 
+    public boolean checkRight(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0]][y[0] + 1] == '#' || board[x[1]][y[1] + 1] == '#' || board[x[2]][y[2] + 1] == '#' || board[x[3]][y[3] + 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[0]][y[0] + 1] == '#' || mainboard[x[1]][y[1] + 1] == '#' || mainboard[x[2]][y[2] + 1] == '#' || mainboard[x[3]][y[3] + 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && board[x[3]][y[3] - 1] == '#') 
+        else if(verNo == 2 && mainboard[x[3]][y[3] - 1] == '#') 
         {
             return true;
         }
@@ -117,21 +110,21 @@ class Square extends Versions
         x = new int[] {1, 1, 2, 2};
         y = new int[] {1, 2, 1, 2};
     }
-    public boolean checkDown(char board[][]) 
+    public boolean checkDown(char mainboard[][]) 
     {
-        if(board[x[2] + 1][y[2]] == '#' || board[x[3] + 1][y[3]] == '#') 
+        if(mainboard[x[2] + 1][y[2]] == '#' || mainboard[x[3] + 1][y[3]] == '#') 
             return true;
         return false;
     }
-    public boolean checkLeft(char board[][]) 
+    public boolean checkLeft(char mainboard[][]) 
     {
-        if(board[x[0]][y[0] - 1] == '#' || board[x[2]][y[2] - 1] == '#') 
+        if(mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#') 
             return true;
         return false;
     }
-    public boolean checkRight(char board[][]) 
+    public boolean checkRight(char mainboard[][]) 
     {
-        if(board[x[1]][y[1] + 1] == '#' || board[x[3]][y[3] + 1] == '#')
+        if(mainboard[x[1]][y[1] + 1] == '#' || mainboard[x[3]][y[3] + 1] == '#')
             return true;
         return false;
     }
@@ -148,126 +141,67 @@ class T extends Versions
     public void changeVer(int verNo) 
     {
         super.changeVer(verNo);
-        int length = y.length;
-        if(verNo == 1) // 4 -> 1
-        { 
-            for (int i = 0; i<length; i++) 
-            {
-                tempVar[i] = x[i];
-                x[i] = y[i];
-            }
-
-            for(int i = 0;i<length - 1;i++) 
-            {
-                y[i] = tempVar[length - (i+2)];
-            }
-
-            y[length - 1] = x[length - 1];
-        } 
-        else if(verNo == 2) // 1 -> 2
-        { 
-            int max = -32768;
-            for (int i = 0; i<length; i++) 
-            {
-                x[i] = y[i];
-                max = max > y[i] ? max : y[i];
-            }
-            for(int i = 0;i<length - 1;i++) 
-            {
-                y[i] = max;
-            }
-
-            y[length - 1] = x[length - 1];
-        } 
-        else if(verNo == 3) // 2 -> 3
-        { 
-            for (int i = 0; i<length; i++) 
-            {
-                tempVar[i] = x[i];
-                x[i] = y[i];
-            }
-            for(int i = 0;i<length - 1;i++) 
-            {
-                y[i] = tempVar[length - (i+2)];
-            	y[length - 1] = x[length - 1];
-            }
-            y[length - 1] = x[length - 1];
-        } 
-        else if(verNo == 4) // 3 -> 4
-        { 
-            int min = 32768;
-            for (int i = 0; i<length; i++) 
-            {
-                x[i] = y[i];
-                min = min < y[i] ? min : y[i];
-            }
-            for(int i = 0;i<length - 1;i++) 
-            {
-                y[i] = min;
-            }
-            y[length - 1] = x[length - 1];
-        }
     }
     public void generateVer() 
     {
         x = new int[] {1, 1, 1, 2};
         y = new int[] {1, 2, 3, 2};
     }
-    public boolean checkDown(char board[][]) 
+    public boolean checkDown(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0] + 1][y[0]] == '#' || board[x[2] + 1][y[2]] == '#' || board[x[3] + 1][y[3]] == '#')) 
+        if(verNo == 1 && (mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[2] + 1][y[2]] == '#' || mainboard[x[3] + 1][y[3]] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && ( board[x[2] + 1][y[2]] == '#' || board[x[3] + 1][y[3]] == '#')) 
+        else if(verNo == 2 && ( mainboard[x[2] + 1][y[2]] == '#' || mainboard[x[3] + 1][y[3]] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[0] + 1][y[0]] == '#' || board[x[1] + 1][y[1]] == '#' || board[x[2] + 1][y[2]] == '#')) 
+        else if(verNo == 3 && (mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[1] + 1][y[1]] == '#' || mainboard[x[2] + 1][y[2]] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[0] + 1][y[0]] == '#' || board[x[3] + 1][y[3]] == '#'))
+        else if(verNo == 4 && (mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[3] + 1][y[3]] == '#'))
         {
             return true;
         }
         return false;
     }
-    public boolean checkLeft(char board[][]) 
+    public boolean checkLeft(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0]][y[0] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && (board[x[0]][y[0] - 1] == '#' || board[x[2]][y[2] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 2 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[2]][y[2]- 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 3 && (mainboard[x[2]][y[2]- 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[0]][y[0] - 1] == '#' || board[x[1]][y[1] - 1] == '#' || board[x[2]][y[2] - 1] == '#')) 
+        else if(verNo == 4 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#')) 
         {
             return true;
         }
         return false;
     }
-    public boolean checkRight(char board[][]) 
+    public boolean checkRight(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[2]][y[2] + 1] == '#' || board[x[3]][y[3] + 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[2]][y[2] + 1] == '#' || mainboard[x[3]][y[3] + 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && (board[x[0]][y[0] - 1] == '#' || board[x[1]][y[1] - 1] == '#' || board[x[2]][y[2] - 1] == '#')) 
+        else if(verNo == 2 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[0]][y[0] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 3 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[0]][y[0] - 1] == '#' || board[x[2]][y[2] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 4 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         }
@@ -285,126 +219,67 @@ class L extends Versions
     public void changeVer(int verNo) 
     {
         super.changeVer(verNo);
-        int length = y.length;
-        if(verNo == 1) // 4 -> 1
-        { 
-            int min = 32768;
-            for (int i = 0; i<length ; i++) 
-            {
-                min = min < x[i] ? min : x[i];
-                x[i] = y[i];
-            }
-            for(int i = 0; i<length - 1; i++) 
-            {
-                y[i] = min;
-            }
-            y[length - 1] = min + 1;
-        } 
-        else if(verNo == 2) // 1 -> 2
-        { 
-            int max = -32768;
-            for (int i = 0; i<length ; i++) 
-            {
-                max = max > x[i] ? max : x[i];
-                x[i] = y[i];
-            }
-            max++;
-            for(int i = 0; i<length - 1; i++) 
-            {
-                y[i] = max--;
-            }
-            y[length - 1] = max + 1;
-        } 
-        else if(verNo == 3) // 2 -> 3
-        { 
-            int max = -32768;
-            for (int i = 0; i<length ; i++) 
-            {
-                max = max > x[i] ? max : x[i];
-                x[i] = y[i];
-            }
-            for(int i = 0; i<length - 1; i++) 
-            {
-                y[i] = max;
-            }
-            y[length - 1] = max - 1;
-        } 
-        else if(verNo == 4) // 3 -> 4
-        { 
-            int min = 32768;
-            for (int i = 0; i<length ; i++) 
-            {
-                min = min < x[i] ? min : x[i];
-                x[i] = y[i];
-            }
-            min--;
-            for(int i = 0; i<length - 1; i++) 
-            {
-                y[i] = min++;
-            }
-            y[length - 1] = min - 1;
-        }
     }
     public void generateVer() 
     {
         x = new int[] {1, 2, 3, 3};
         y = new int[] {1, 1, 1, 2};
     }
-    public boolean checkDown(char board[][]) 
+    public boolean checkDown(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[2] + 1][y[2]] == '#' || board[x[3] + 1][y[3]] == '#')) 
+        if(verNo == 1 && (mainboard[x[2] + 1][y[2]] == '#' || mainboard[x[3] + 1][y[3]] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && ( board[x[0] + 1][y[0]] == '#' || board[x[1] + 1][y[1]] == '#' || board[x[2] + 1][y[2]] == '#')) 
+        else if(verNo == 2 && ( mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[1] + 1][y[1]] == '#' || mainboard[x[2] + 1][y[2]] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[0] + 1][y[0]] == '#' || board[x[3] + 1][y[3]] == '#')) 
+        else if(verNo == 3 && (mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[3] + 1][y[3]] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[0] + 1][y[0]] == '#' || board[x[1] + 1][y[1]] == '#' || board[x[2] + 1][y[2]] == '#' ))
+        else if(verNo == 4 && (mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[1] + 1][y[1]] == '#' || mainboard[x[2] + 1][y[2]] == '#' ))
         {
             return true;
         }
         return false;
     }
-    public boolean checkLeft(char board[][]) 
+    public boolean checkLeft(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0]][y[0] - 1] == '#' || board[x[1]][y[1] - 1] == '#' || board[x[2]][y[2] - 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && (board[x[0]][y[0] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 2 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[0]][y[0] - 1] == '#' || board[x[1]][y[1] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 3 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[2]][y[2] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 4 && (mainboard[x[2]][y[2] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         }
         return false;
     }
-    public boolean checkRight(char board[][]) 
+    public boolean checkRight(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0]][y[0] + 1] == '#' || board[x[1]][y[1] + 1] == '#' || board[x[3]][y[3] + 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[0]][y[0] + 1] == '#' || mainboard[x[1]][y[1] + 1] == '#' || mainboard[x[3]][y[3] + 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && (board[x[0]][y[0] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 2 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[0]][y[0] + 1] == '#' || board[x[1]][y[1] + 1] == '#' || board[x[2]][y[2] + 1] == '#')) 
+        else if(verNo == 3 && (mainboard[x[0]][y[0] + 1] == '#' || mainboard[x[1]][y[1] + 1] == '#' || mainboard[x[2]][y[2] + 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[2]][y[2] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 4 && (mainboard[x[2]][y[2] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         }
@@ -423,108 +298,59 @@ class Z extends Versions
     public void changeVer(int verNo) 
     {
         super.changeVer(verNo);
-        int length = y.length;
-        if(verNo == 1) //4 -> 1
-        { 
-            for (int i = 0; i<length ; i++) 
-            {
-                tempVar[i] = x[i];
-                x[i] = y[i] - 1;
-            }
-            for(int i = 0;i<length;i++) 
-            {
-                y[i] = tempVar[i];
-            }
-        } 
-        else if(verNo == 2) // 1 -> 2
-        { 
-            for (int i = 0; i<length ; i++) 
-            {
-                tempVar[i] = x[i];
-                x[i] = y[i];
-            }
-            for(int i = 0;i<length;i++) 
-            {
-                y[i] = tempVar[i];
-            }
-        } 
-        else if(verNo == 3) // 2 -> 3
-        { 
-            for (int i = 0; i<length ; i++) 
-            {
-                tempVar[i] = x[i];
-                x[i] = y[i] + 1;
-            }
-            for(int i = 0;i<length;i++) 
-            {
-                y[i] = tempVar[i];
-            }
-        } 
-        else if(verNo == 4) // 3 -> 4
-        { 
-            for (int i = 0; i<length ; i++) 
-            {
-                tempVar[i] = x[i];
-                x[i] = y[i];
-            }
-            for(int i = 0;i<length;i++) 
-            {
-                y[i] = tempVar[i];
-            }
-        }
     }
     public void generateVer() 
     {
         x = new int[] {1, 2, 2, 3};
         y = new int[] {1, 1, 2, 2};
     }
-    public boolean checkDown(char board[][]) 
+    public boolean checkDown(char mainboard[][]) 
     {
-        if((verNo == 1 || verNo == 3 ) && (board[x[1] + 1][y[1]] == '#' || board[x[3] + 1][y[3]] == '#')) 
+        if((verNo == 1 || verNo == 3 ) && (mainboard[x[1] + 1][y[1]] == '#' || mainboard[x[3] + 1][y[3]] == '#')) 
         {
             return true;
         } 
-        else if((verNo == 2 || verNo == 4 ) && ( board[x[0] + 1][y[0]] == '#' || board[x[2] + 1][y[2]] == '#' || board[x[3] + 1][y[3]] == '#')) 
+        else if((verNo == 2 || verNo == 4 ) && ( mainboard[x[0] + 1][y[0]] == '#' || mainboard[x[2] + 1][y[2]] == '#' || mainboard[x[3] + 1][y[3]] == '#')) 
         {
             return true;
         }
         return false;
     }
-    public boolean checkLeft(char board[][]) 
+    public boolean checkLeft(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0]][y[0] - 1] == '#' || board[x[1]][y[1] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && (board[x[1]][y[1] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 2 && (mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[0]][y[0] - 1] == '#' || board[x[2]][y[2] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 3 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[0]][y[0] - 1] == '#' || board[x[2]][y[2] - 1] == '#')) 
+        else if(verNo == 4 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#')) 
         {
             return true;
         }
         return false;
     }
-    public boolean checkRight(char board[][]) 
+    public boolean checkRight(char mainboard[][]) 
     {
-        if(verNo == 1 && (board[x[0]][y[0] + 1] == '#' || board[x[2]][y[2] + 1] == '#' || board[x[3]][y[3] + 1] == '#')) 
+        if(verNo == 1 && (mainboard[x[0]][y[0] + 1] == '#' || mainboard[x[2]][y[2] + 1] == '#' || mainboard[x[3]][y[3] + 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 2 && (board[x[0]][y[0] - 1] == '#' || board[x[2]][y[2] - 1] == '#')) 
+        else if(verNo == 2 && (mainboard[x[0]][y[0] - 1] == '#' || mainboard[x[2]][y[2] - 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 3 && (board[x[0]][y[0] + 1] == '#' || board[x[1]][y[1] + 1] == '#' || board[x[3]][y[3] + 1] == '#')) 
+        else if(verNo == 3 && (mainboard[x[0]][y[0] + 1] == '#' || mainboard[x[1]][y[1] + 1] == '#' || mainboard[x[3]][y[3] + 1] == '#')) 
         {
             return true;
         } 
-        else if(verNo == 4 && (board[x[1]][y[1] - 1] == '#' || board[x[3]][y[3] - 1] == '#')) 
+        else if(verNo == 4 && (mainboard[x[1]][y[1] - 1] == '#' || mainboard[x[3]][y[3] - 1] == '#')) 
         {
             return true;
         }
@@ -532,9 +358,9 @@ class Z extends Versions
     }
 }
 
-public class Tetris 
+public class TetrisGame
 {
-    public static char board[][] = new char[20][20];
+    public static char mainboard[][] = new char[20][20];
     public static int hashCount[] = new int[20];
     static int currentVer = 1, currentShapeNo = 2;
     public static Stack<String> undoStack = new Stack<String>();
@@ -549,18 +375,27 @@ public class Tetris
         Z z = new Z();
         Versions currentShape = new Versions();
         char choice;
-        initBoard();
+        initmainboard();
         while(true) 
         {
-            currentShape = currentShapeNo == 1 ? line : currentShapeNo == 2 ? square : currentShapeNo == 3 ? t : currentShapeNo == 4 ? l : z;
-            drawOnBoard(currentShape);
-            displayBoard();
+        	if(currentShapeNo==1)
+        		currentShape = line;
+        	else if(currentShapeNo==2)
+        		currentShape = square;
+        	else if(currentShapeNo==3)
+        		currentShape = t;
+        	else if(currentShapeNo==4)
+        		currentShape = l;
+        	else
+        		currentShape = z;
+            drawOnmainboard(currentShape);
+            displaymainboard();
             choice = scanner.next().charAt(0);
-            if (choice == 'c') 
+            if (choice == 'm') 
             {
                 currentVer = currentVer > 4 ? 1 : ++currentVer;
                 currentShape.changeVer(currentVer);
-                undoStack.push("c");
+                undoStack.push("m");
             } 
             else if(choice == 'a') 
             {
@@ -605,16 +440,16 @@ public class Tetris
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         }
     }
-    public static void initBoard() 
+    public static void initmainboard() 
     {
-        for(int i = 0;i<board.length;i++) 
+        for(int i = 0;i<mainboard.length;i++) 
         {
-            for(int j = 0;j<board[i].length;j++) 
+            for(int j = 0;j<mainboard[i].length;j++) 
             {
-                if(i == 0 || j == 0 || i == board.length - 1 || j == board.length - 1 )
-                    board[i][j] = '*';
+                if(i == 0 || j == 0 || i == mainboard.length - 1 || j == mainboard.length - 1 )
+                    mainboard[i][j] = '*';
                 else
-                    board[i][j] = ' ';
+                    mainboard[i][j] = ' ';
             }
         }
     }
@@ -625,16 +460,16 @@ public class Tetris
             System.out.println(hashCount[i]);
         }
     } 
-    public static void drawOnBoard(Versions V) 
+    public static void drawOnmainboard(Versions V) 
     {
         for(int i = 0;i<V.x.length;i++) 
         {
-            board[V.x[i]][V.y[i]] = '#';
+            mainboard[V.x[i]][V.y[i]] = '#';
         }
     } 
-    public static void displayBoard() 
+    public static void displaymainboard() 
     {
-        for(char arr[]:board) 
+        for(char arr[]:mainboard) 
         {
             for(char a:arr) 
             {
@@ -645,23 +480,23 @@ public class Tetris
     }
     public static void moveDown(Versions V) 
     {
-        if(V.x[0] == (board.length - 2) || V.x[1] == (board.length - 2) || V.x[2] == (board.length - 2) || V.x[3] == (board.length - 2) || V.checkDown(board)) 
+        if(V.x[0] == (mainboard.length - 2) || V.x[1] == (mainboard.length - 2) || V.x[2] == (mainboard.length - 2) || V.x[3] == (mainboard.length - 2) || V.checkDown(mainboard)) 
         {
             for(int i:V.x ) 
             {
                 hashCount[i]++;
-                if(hashCount[i] == board.length - 2) 
+                if(hashCount[i] == mainboard.length - 2) 
                 {
                     hashCount[i] = 0;
                     int j;
                     for(j = i;j>1 && hashCount[j - 1] != 0;j--) 
                     {
-                        board[j] = board[j-1];
+                        mainboard[j] = mainboard[j-1];
                     }
-                    board[j] = new char[20];
-                    board[j][0] = '*';
-                    board[j][board.length - 1] = '*';
-                    displayBoard();
+                    mainboard[j] = new char[20];
+                    mainboard[j][0] = '*';
+                    mainboard[j][mainboard.length - 1] = '*';
+                    displaymainboard();
                 }
             }
             V.generateVer();
@@ -670,28 +505,28 @@ public class Tetris
         }
         for(int i = 0;i<V.x.length;i++) 
         {
-            board[V.x[i]][V.y[i]] = ' ';
+            mainboard[V.x[i]][V.y[i]] = ' ';
             V.x[i]++;
         }   
     }
     public static void moveLeft(Versions V) 
     {
-        if(V.y[0] == 1 || V.y[1] == 1 || V.y[2] == 1 || V.y[3] == 1 || V.checkLeft(board))
+        if(V.y[0] == 1 || V.y[1] == 1 || V.y[2] == 1 || V.y[3] == 1 || V.checkLeft(mainboard))
             return;
         for(int i = 0;i<V.x.length;i++) 
         {
-            board[V.x[i]][V.y[i]] = ' ';
+            mainboard[V.x[i]][V.y[i]] = ' ';
             V.y[i]--;
         }
         
     }
     public static void moveRight(Versions V) 
     {
-        if(V.y[0] == (board.length - 2) || V.y[1] == (board.length - 2) || V.y[2] == (board.length - 2) || V.y[3] == (board.length - 2) || V.checkRight(board))
+        if(V.y[0] == (mainboard.length - 2) || V.y[1] == (mainboard.length - 2) || V.y[2] == (mainboard.length - 2) || V.y[3] == (mainboard.length - 2) || V.checkRight(mainboard))
             return;
         for(int i = 0;i<V.x.length;i++) 
         {
-            board[V.x[i]][V.y[i]] = ' ';
+            mainboard[V.x[i]][V.y[i]] = ' ';
             V.y[i]++;
         } 
     }
@@ -701,7 +536,7 @@ public class Tetris
         {
             for(int i = 0;i<V.x.length;i++) 
             {
-                board[V.x[i]][V.y[i]] = ' ';
+                mainboard[V.x[i]][V.y[i]] = ' ';
                 V.x[i]--;
             }
         } 
@@ -713,7 +548,7 @@ public class Tetris
         {
             moveLeft(V);
         } 
-        else if(choice.equals("c")) 
+        else if(choice.equals("m")) 
         {
             currentVer--;
             V.changeVer(currentVer);   
@@ -733,7 +568,7 @@ public class Tetris
         {
             moveRight(V);
         } 
-        else if(choice.equals("c")) 
+        else if(choice.equals("m")) 
         {
             currentVer++;
             V.changeVer(currentVer);   
