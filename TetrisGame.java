@@ -408,6 +408,23 @@ class Z extends Versions
     public void changeVer(int verNo, char mainboard[][]) 
     {
         super.changeVer(verNo, mainboard);
+        mainboard[x[0]][y[0]]=' ';
+    	mainboard[x[3]][y[3]]=' ';
+        //x[2] , y[2] is constant
+        //x[1] , y[1] is also constant
+        if(verNo==2||verNo==4)
+        {
+	        y[0] = y[0]+2;
+
+	        x[3] = x[3]-2;
+        }
+        if(verNo==1||verNo==3)
+        {
+        	y[0] = y[0]-2;
+
+        	x[3] = x[3]+2;
+        }
+
     }
     public void generateVer() 
     {
@@ -488,21 +505,21 @@ public class TetrisGame
         initmainboard();
         while(true) 
         {
-        	// if(currentShapeNo==1)
-        	// 	currentShape = line;
-        	// else if(currentShapeNo==2)
-        	// 	currentShape = square;
-        	// else if(currentShapeNo==3)
-        	// 	currentShape = t;
-        	// else if(currentShapeNo==4)
-        	// 	currentShape = l;
-        	// else
-        	// 	currentShape = z;
-        	currentShape=line;
+        	if(currentShapeNo==1)
+        		currentShape = line;
+        	else if(currentShapeNo==2)
+        		currentShape = square;
+        	else if(currentShapeNo==3)
+        		currentShape = t;
+        	else if(currentShapeNo==4)
+        		currentShape = l;
+        	else
+        		currentShape = z;
+        	// currentShape=z;
             drawOnmainboard(currentShape);
             displaymainboard();
             choice = scanner.next().charAt(0);
-            if (choice == 'm')
+            if (choice == 'r')
             {
             	if(currentVer>4)
             	{
@@ -511,7 +528,7 @@ public class TetrisGame
             	else
             		currentVer++;
                 currentShape.changeVer(currentVer,mainboard);
-                undoStack.push("m");
+                undoStack.push("r");
             } 
             else if(choice == 'a') 
             {
@@ -664,7 +681,7 @@ public class TetrisGame
         {
             moveLeft(V);
         } 
-        else if(choice.equals("m")) 
+        else if(choice.equals("r")) 
         {
             currentVer--;
             V.changeVer(currentVer, mainboard);   
@@ -684,7 +701,7 @@ public class TetrisGame
         {
             moveRight(V);
         } 
-        else if(choice.equals("m")) 
+        else if(choice.equals("r")) 
         {
             currentVer++;
             V.changeVer(currentVer, mainboard);   
