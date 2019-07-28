@@ -170,85 +170,52 @@ class T extends Versions
         //x[3],y[3] is fixed
         if(verNo == 1)	//4->1
         {
-        	mainboard[x[0]][y[0]]=' ';
-        	mainboard[x[1]][y[1]]=' ';
-        	mainboard[x[2]][y[2]]=' ';
-        	int temp;
+	        //x[0] , y[0] is also constant
 
-        	temp=x[0];
-        	x[0]=y[0];
-        	y[0]=temp;
+	    	mainboard[x[1]][y[1]]=' ';
+	    	mainboard[x[2]][y[2]]=' ';
+        	
+        	x[2]-=2;
+        	y[2]+=2;
 
-        	temp=x[1];
-        	x[1]=y[1];
-        	y[1]=temp;
-
-        	temp=x[2];
-        	x[2]=y[2];
-        	y[2]=temp;
+        	x[1]-=1;
+        	y[1]+=1;
         }
         else if(verNo==2)	//1->2
         {
-    	  	mainboard[x[0]][y[0]]=' ';
-        	mainboard[x[1]][y[1]]=' ';
-        	mainboard[x[2]][y[2]]=' ';
-        	int temp;
+        	//x[2] , y[2] will also remain constant
+        	mainboard[x[0]][y[0]]=' ';
+	    	mainboard[x[1]][y[1]]=' ';
 
-        	temp=x[0];
-        	x[0]=y[0];
-        	y[0]=temp;
+        	x[0]+=2;
         	y[0]+=2;
 
-        	temp=x[1];
-        	x[1]=y[1];
-        	y[1]=temp;
-        	y[1]+=2;
-
-        	temp=x[2];
-        	x[2]=y[2];
-        	y[2]=temp;
-        	y[2]+=2;
+        	x[1]+=1;
+        	y[1]+=1;
         }
         else if(verNo==3)	//2->3
         {
-        	mainboard[x[0]][y[0]]=' ';
-        	mainboard[x[1]][y[1]]=' ';
+        	//x[0] , y[0] will also remain constant
         	mainboard[x[2]][y[2]]=' ';
-        	int temp;
+	    	mainboard[x[1]][y[1]]=' ';
 
-        	temp=x[0];
-        	x[0]=y[0];
-        	y[0]=temp;
+        	x[2]+=2;
+        	y[2]-=2;
 
-        	temp=x[1];
-        	x[1]=y[1];
-        	y[1]=temp;
-
-        	temp=x[2];
-        	x[2]=y[2];
-        	y[2]=temp;	
+        	x[1]+=1;
+        	y[1]-=1;	
         }
         else if(verNo == 4)   //3->4
         {
+        	//x[2] , y[2] will also remain constant
         	mainboard[x[0]][y[0]]=' ';
-        	mainboard[x[1]][y[1]]=' ';
-        	mainboard[x[2]][y[2]]=' ';
-        	int temp;
-
-        	temp=x[0];
-        	x[0]=y[0];
-        	y[0]=temp;
+	    	mainboard[x[1]][y[1]]=' ';
+        	
+        	x[0]-=2;
         	y[0]-=2;
 
-        	temp=x[1];
-        	x[1]=y[1];
-        	y[1]=temp;
-        	y[1]-=2;
-
-        	temp=x[2];
-        	x[2]=y[2];
-        	y[2]=temp;
-        	y[2]-=2;
+        	x[1]-=1;
+        	y[1]-=1;
         }
     }
     public void generateVer() 
@@ -515,7 +482,7 @@ public class TetrisGame
         		currentShape = l;
         	else
         		currentShape = z;
-        	// currentShape=z;
+        	//currentShape=t;
             drawOnmainboard(currentShape);
             displaymainboard();
             choice = scanner.next().charAt(0);
@@ -547,9 +514,13 @@ public class TetrisGame
             } 
             else if(choice == 'z') 
             {
-                if(undoStack.isEmpty()) continue ;
-                undoStep(undoStack.peek(), currentShape);
-                redoStack.push(undoStack.pop());
+                if(undoStack.isEmpty()) 
+                	continue ;
+                else
+                {
+	                undoStep(undoStack.peek(), currentShape);
+	                redoStack.push(undoStack.pop());
+           		}
             } 
             else if(choice == 'y') 
             {
@@ -633,7 +604,7 @@ public class TetrisGame
                 }
             }
             V.generateVer();
-            currentShapeNo = (int)(Math.random() * 5) + 1;
+            currentShapeNo = (int)(Math.random() * 7) + 1;
             return;
         }
         for(int i = 0;i<V.x.length;i++) 
@@ -707,4 +678,4 @@ public class TetrisGame
             V.changeVer(currentVer, mainboard);   
         }
     }
-}
+} 
